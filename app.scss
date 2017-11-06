@@ -1,0 +1,11 @@
+@import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap-compass";
+@import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+/* Component SASS */
+@import "partial/analytics/analytics.scss";
+@import "partial/movies/movies.scss";
+@import "partial/movieInfo/movieInfo.scss";
+/* Add Component SASS Above */
+
+
+.table-mdb>tbody>tr { cursor: pointer; };

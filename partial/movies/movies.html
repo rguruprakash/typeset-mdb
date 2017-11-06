@@ -1,0 +1,18 @@
+<div class="col-md-12" >
+  <table class="table table-striped table-hover table-mdb">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Released year</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="m in movies | orderBy: m.Rating" ng-click="showMovieInfo(m.Id)">
+        <td>{{m.Title}}</td>
+        <td>{{m.ReleaseYear}}</td>
+        <td>{{m.Rating}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

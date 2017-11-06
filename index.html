@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="mdb">
+<head>
+  <title>MDB</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+  
+  <link rel="stylesheet" href="app.css">
+  
+</head>
+<body>
+
+  <!-- Livereload script for development only (stripped during dist build) -->
+  <script src="http://localhost:35729/livereload.js" data-concat="false"></script>
+
+  <!-- JS from Bower Components -->
+  
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <!-- Add New Bower Component JS Above -->
+
+
+  <!-- Main App JS -->
+  <script src="app.js"></script>
+  <script src="partial/analytics/analytics.js"></script>
+  <script src="service/analytics.js"></script>
+  <script src="service/movies.js"></script>
+  <script src="partial/movies/movies.js"></script>
+  <script src="partial/movieInfo/movieInfo.js"></script>
+  <script src="service/utils.js"></script>
+  <!-- Add New Component JS Above -->
+
+  <div>
+    <div id="content" class="container">
+      <nav class="navbar navbar-default">
+
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exbs" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+              MDB
+            </a>
+          </div>
+          <div class="collapse navbar-collapse" id="exbs">
+            <ul class="nav navbar-nav">
+              <li><a ui-sref="analytics">Home</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="row">
+        <div ui-view>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
