@@ -28,7 +28,7 @@ Project structure ([cg-angular](https://github.com/cgross/generator-cg-angular))
       /analytics ................... example partial
         analytics.html ............. example partial html
         analytics.js ............... example partial controller
-        analytics.less ............. example partial LESS
+        analytics.scss ............. example partial SCSS
         analytics-spec.js .......... example partial unit test
     /service ....................... angular services folder
         my-service.js .............. example service
