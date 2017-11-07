@@ -1,5 +1,6 @@
 <div class="col-md-12">
   <table class="table table-striped">
+    <h3>{{info.Title}}</h3>
     <tbody>
       <tr>
         <td>Title</td>
@@ -16,6 +17,16 @@
       <tr>
         <td>Genre</td>
         <td>{{info.Genre}}</td>
+      </tr>
+      <tr>
+        <td>Actors</td>
+        <td>
+          <ul>
+            <li ng-repeat="actor in actors">
+              <a ui-sref="moviesByActor({actorId: actor.Id})">{{actor.Name}}</a>
+            </li>
+          </ul>
+        </td>
       </tr>
       <tr>
         <td>Description</td>

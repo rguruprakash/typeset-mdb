@@ -13,7 +13,6 @@
 
     movies.getByActor = function(actorId, limit) {
       var url = $utils.buildUrl('actor/' + actorId + '/movies/', {
-        actorId: actorId,
         limit: limit
       });
 

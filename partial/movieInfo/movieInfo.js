@@ -1,8 +1,7 @@
 (function() {
 
-  function movieInfoCtrl($scope, $movies, $stateParams, $log, $window){
-    $scope.getMovieInfo = function() {
-      var movieId = $stateParams.movieId;
+  function movieInfoCtrl($scope, $movies, $stateParams, $log, $window, $actors){
+    $scope.getMovieInfo = function(movieId) {
       $movies.getById(movieId).then(function(res) {
         $scope.info = res.data;
       }, function(err) {
@@ -10,8 +9,22 @@
         $log.error(err);
       });
     };
+
+    $scope.getActors = function(movieId) {
+      $actors.getByMovieId(movieId).then(function(res) {
+        $scope.actors = res.data;
+      }, function(err) {
+        $window.alert('Unable to fetch actors list');
+        $log.error(err);
+      });
+    };
     
-    $scope.getMovieInfo();
+    $scope.init = function() {
+      $scope.getMovieInfo($stateParams.movieId);
+      $scope.getActors($stateParams.movieId);
+    };
+
+    $scope.init();
   }
 
   angular
@@ -23,6 +36,7 @@
     '$movies',
     '$stateParams',
     '$log',
-    '$window'
+    '$window',
+    '$actors'
   ];
 })();

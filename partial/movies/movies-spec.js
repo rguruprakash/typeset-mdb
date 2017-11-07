@@ -2,9 +2,9 @@ describe('MoviesCtrl', function() {
 
   beforeEach(module('mdb'));
 
-  var scope, ctrl, $movies, $q, $log, $controller, $state, $window;
+  var scope, ctrl, $movies, $q, $log, $controller, $state, $window, $actors;
 
-  beforeEach(inject(function($rootScope, _$controller_, _$movies_, _$q_, _$log_, _$state_, _$window_) {
+  beforeEach(inject(function($rootScope, _$controller_, _$movies_, _$q_, _$log_, _$state_, _$window_, _$actors_) {
     scope = $rootScope.$new();
     $movies= _$movies_;
     $q = _$q_;
@@ -13,6 +13,7 @@ describe('MoviesCtrl', function() {
     ctrl = $controller('MoviesCtrl', {$scope: scope, $stateParams: {actorId: 'actorId'}});
     $state = _$state_;
     $window  =_$window_;
+    $actors = _$actors_;
   }));
 
   var deferred;
@@ -56,21 +57,54 @@ describe('MoviesCtrl', function() {
     var fakeError = {error: 'fakeError'};
     deferred.reject(fakeError);
 
-    scope.init();
+    scope.getMoviesByActorId();
 
     scope.$apply();
     expect($log.error).toHaveBeenCalledWith(fakeError);
   });
 
-  it('should alert proper msg if unable to fetch list of male actors', function() {
+  it('should alert proper msg if unable to fetch moviesByActor', function() {
     spyOn($movies, 'getByActor').and.callFake(function() { return deferred.promise; });
     deferred.reject();
 
-    scope.init();
+    scope.getMoviesByActorId();
 
     scope.$apply();
     
     expect($window.alert).toHaveBeenCalled();
   });
 
+  it('should fetch actor info', function() {
+    spyOn($actors, 'getById').and.callFake(function() { return deferred.promise; });
+    var fakeData = {data: []};
+    deferred.resolve(fakeData);
+
+    scope.getActorById();
+
+    scope.$apply();
+    expect(scope.actor).toBe(fakeData.data);
+  });
+
+  it('should log error if unable to fetch actor infor', function() {
+    spyOn($actors, 'getById').and.callFake(function() { return deferred.promise; });
+    spyOn($log, 'error').and.callThrough();
+    var fakeError = {error: 'fakeError'};
+    deferred.reject(fakeError);
+
+    scope.getActorById();
+
+    scope.$apply();
+    expect($log.error).toHaveBeenCalledWith(fakeError);
+  });
+
+  it('should alert proper msg if unable to fetch actorinfo', function() {
+    spyOn($actors, 'getById').and.callFake(function() { return deferred.promise; });
+    deferred.reject();
+
+    scope.getActorById();
+
+    scope.$apply();
+    
+    expect($window.alert).toHaveBeenCalled();
+  });
 });
