@@ -8,6 +8,7 @@ Setup
 -----
 ```
 npm install -g grunt-cli bower
+gem install compass
 git clone https://github.com/rguruprakash/typeset-mdb
 cd typeset-mdb
 npm install
