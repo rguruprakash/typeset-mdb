@@ -20,6 +20,7 @@ Grunt tasks
 ```
 grunt serve
 grunt test
+grunt build
 ```
 
 Project structure ([cg-angular](https://github.com/cgross/generator-cg-angular))
