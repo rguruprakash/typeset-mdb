@@ -1,7 +1,6 @@
 temp/
 tests/
 coverage/
-dist/
 node_modules/
 bower_components/
 .sass-cache/
