@@ -2,9 +2,9 @@ describe('MoviesCtrl', function() {
 
   beforeEach(module('mdb'));
 
-  var scope, ctrl, $movies, $q, $log, $controller, $state;
+  var scope, ctrl, $movies, $q, $log, $controller, $state, $window;
 
-  beforeEach(inject(function($rootScope, _$controller_, _$movies_, _$q_, _$log_, _$state_) {
+  beforeEach(inject(function($rootScope, _$controller_, _$movies_, _$q_, _$log_, _$state_, _$window_) {
     scope = $rootScope.$new();
     $movies= _$movies_;
     $q = _$q_;
@@ -12,10 +12,12 @@ describe('MoviesCtrl', function() {
     $controller = _$controller_;
     ctrl = $controller('MoviesCtrl', {$scope: scope, $stateParams: {actorId: 'actorId'}});
     $state = _$state_;
+    $window  =_$window_;
   }));
 
   var deferred;
   beforeEach(function() {
+    spyOn($window, 'alert').and.callFake(function() {});
     deferred = $q.defer();
   });
 
@@ -58,6 +60,17 @@ describe('MoviesCtrl', function() {
 
     scope.$apply();
     expect($log.error).toHaveBeenCalledWith(fakeError);
+  });
+
+  it('should alert proper msg if unable to fetch list of male actors', function() {
+    spyOn($movies, 'getByActor').and.callFake(function() { return deferred.promise; });
+    deferred.reject();
+
+    scope.init();
+
+    scope.$apply();
+    
+    expect($window.alert).toHaveBeenCalled();
   });
 
 });

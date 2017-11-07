@@ -2,9 +2,9 @@ describe('AnalyticsCtrl', function() {
 
   beforeEach(module('mdb'));
 
-  var scope, ctrl, $analytics, $q, $log, $controller, $state;
+  var scope, ctrl, $analytics, $q, $log, $controller, $state, $window;
 
-  beforeEach(inject(function($rootScope, _$controller_, _$analytics_, _$q_, _$log_, _$state_) {
+  beforeEach(inject(function($rootScope, _$controller_, _$analytics_, _$q_, _$log_, _$state_, _$window_) {
     scope = $rootScope.$new();
     $analytics = _$analytics_;
     $q = _$q_;
@@ -12,10 +12,12 @@ describe('AnalyticsCtrl', function() {
     $controller = _$controller_;
     ctrl = $controller('AnalyticsCtrl', {$scope: scope});
     $state = _$state_;
+    $window  =_$window_;
   }));
 
   var deferred;
   beforeEach(function() {
+    spyOn($window, 'alert').and.callFake(function() {});
     deferred = $q.defer();
   });
 
@@ -64,6 +66,17 @@ describe('AnalyticsCtrl', function() {
     expect($log.error).toHaveBeenCalledWith(fakeError);
   });
 
+  it('should alert proper msg if unable to fetch list of male actors', function() {
+    spyOn($analytics, 'getMaleActorsByRating').and.callFake(function() { return deferred.promise; });
+    deferred.reject();
+
+    scope.getMaleActorsByRating();
+
+    scope.$apply();
+    
+    expect($window.alert).toHaveBeenCalled();
+  });
+
   it('should fetch list of female actors', function() {
     spyOn($analytics, 'getFemaleActorsByRating').and.callFake(function() { return deferred.promise; });
 
@@ -89,6 +102,17 @@ describe('AnalyticsCtrl', function() {
     scope.$apply();
     
     expect($log.error).toHaveBeenCalledWith(fakeError);
+  });
+
+  it('should alert proper msg if unable to fetch list of female actors', function() {
+    spyOn($analytics, 'getFemaleActorsByRating').and.callFake(function() { return deferred.promise; });
+    deferred.reject();
+
+    scope.getFemaleActorsByRating();
+
+    scope.$apply();
+    
+    expect($window.alert).toHaveBeenCalled();
   });
 
   it('should navigate to movies route', function() {

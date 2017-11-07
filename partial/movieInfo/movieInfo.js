@@ -1,11 +1,12 @@
 (function() {
 
-  function movieInfoCtrl($scope, $movies, $stateParams, $log){
+  function movieInfoCtrl($scope, $movies, $stateParams, $log, $window){
     $scope.getMovieInfo = function() {
       var movieId = $stateParams.movieId;
       $movies.getById(movieId).then(function(res) {
         $scope.info = res.data;
       }, function(err) {
+        $window.alert('Unable to fetch movie info');
         $log.error(err);
       });
     };
@@ -21,6 +22,7 @@
     '$scope',
     '$movies',
     '$stateParams',
-    '$log'
+    '$log',
+    '$window'
   ];
 })();

@@ -1,11 +1,12 @@
 (function() {
 
-  function analyticsCtrl($scope, $analytics, $log, $state) {
+  function analyticsCtrl($scope, $analytics, $log, $state, $window) {
 
     $scope.getMaleActorsByRating = function() {
       $analytics.getMaleActorsByRating().then(function(res) {
         $scope.maleActors = res.data;
       }, function(err) {
+        $window.alert('Unable to fetch top male actors by rating');
         $log.error(err);
       });
     };
@@ -14,6 +15,7 @@
       $analytics.getFemaleActorsByRating().then(function(res) {
         $scope.femaleActors = res.data;
       }, function(err) {
+        $window.alert('Unable to fetch top female actors by rating');
         $log.error(err);
       });
     };
@@ -43,6 +45,7 @@
     '$scope',
     '$analytics',
     '$log',
-    '$state'
+    '$state',
+    '$window'
   ];
 })();
